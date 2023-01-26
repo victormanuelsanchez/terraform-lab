@@ -23,6 +23,11 @@ variable "zone2" {
   description = "Define the 2nd zone of the region"
 }
 
+variable "zone3" {
+  default = "us-south-3"
+  description = "Define the 3rd zone of the region"
+}
+
 variable "zone1_cidr" {
   default = "172.16.1.0/24"
   description = "CIDR block to be used for zone 1"
@@ -31,6 +36,11 @@ variable "zone1_cidr" {
 variable "zone2_cidr" {
   default = "172.16.2.0/24"
   description = "CIDR block to be used for zone 2"
+}
+
+variable "zone3_cidr" {
+  default = "172.16.3.0/24"
+  description = "CIDR block to be used for zone 3"
 }
 
 variable "ssh_key_name" {
