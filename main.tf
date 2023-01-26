@@ -99,7 +99,7 @@ resource "ibm_is_instance" "instance3" {
   }
   vpc  = ibm_is_vpc.vpc1.id
   zone = var.zone3
-  keys = [ibm_is_ssh_key.ssh1.sshkey1.id]
+  keys = [data.ibm_is_ssh_key.sshkey1.id]
   user_data = data.template_cloudinit_config.cloud-init-apptier.rendered
   
   resource_group = data.ibm_resource_group.rg.id
@@ -128,7 +128,7 @@ resource "ibm_is_security_group_rule" "sg1_tcp_rule_80" {
 resource "ibm_is_floating_ip" "floatingip3" {
   name = "fip3"
   target = ibm_is_instance.instance3.primary_network_interface.0.id
-  depends_on = ibm_is_floating_ip.floatingip1, ibm_is_floating_ip.floatingip2, ibm_is_floating_ip.floatingip3
+  depends_on = [ibm_is_floating_ip.floatingip1, ibm_is_floating_ip.floatingip2, ibm_is_floating_ip.floatingip3]
 }
 
 output "FloatingIP-3" {
