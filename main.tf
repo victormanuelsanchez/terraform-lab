@@ -128,9 +128,18 @@ resource "ibm_is_security_group_rule" "sg1_tcp_rule_80" {
 resource "ibm_is_floating_ip" "floatingip3" {
   name = "fip3"
   target = ibm_is_instance.instance3.primary_network_interface.0.id
+  depends_on = ibm_is_floating_ip.floatingip1, ibm_is_floating_ip.floatingip2, ibm_is_floating_ip.floatingip3
 }
 
 output "FloatingIP-3" {
     value = ibm_is_floating_ip.floatingip3.address
+}
+
+resource "ibm_is_lb_pool_member" "lb1-pool-member3" {
+  count = 1
+  lb = ibm_is_lb.lb1.id
+  pool = ibm_is_lb_pool.lb1-pool.id
+  port = "80"
+  target_address = ibm_is_instance.instance3.primary_network_interface.0.primary_ipv4_address
 }
 
