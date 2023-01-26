@@ -89,8 +89,8 @@ resource "ibm_is_instance" "instance2victor" {
   resource_group = data.ibm_resource_group.rg.id
 }
 
-resource "ibm_is_instance" "instance3" {
-  name    = "instance3"
+resource "ibm_is_instance" "instance3victor" {
+  name    = "instance3victor"
   image   = var.image
   profile = var.profile
 
