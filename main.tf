@@ -109,6 +109,7 @@ resource "ibm_is_security_group_rule" "sg1_tcp_rule_22" {
   group     = ibm_is_vpc.vpc1.default_security_group
   direction = "inbound"
   remote    = "0.0.0.0/0"
+  depends_on = [ibm_is_floating_ip.floatingip1, ibm_is_floating_ip.floatingip2, ibm_is_floating_ip.floatingip3]
   tcp {
     port_min = "22"
     port_max = "22"
@@ -118,6 +119,7 @@ resource "ibm_is_security_group_rule" "sg1_tcp_rule_22" {
 resource "ibm_is_security_group_rule" "sg1_tcp_rule_80" {
   group     = ibm_is_vpc.vpc1.default_security_group
   direction = "inbound"
+  depends_on = [ibm_is_floating_ip.floatingip1, ibm_is_floating_ip.floatingip2, ibm_is_floating_ip.floatingip3]
   remote    = "0.0.0.0/0"
   tcp {
     port_min = "80"
@@ -129,12 +131,6 @@ resource "ibm_is_floating_ip" "floatingip3" {
   name = "fip3"
   target = ibm_is_instance.instance3.primary_network_interface.0.id
 }
-
-output "FloatingIP-3" {
-    value = ibm_is_floating_ip.floatingip3.address
-}
-
-depends_on = [ibm_is_floating_ip.floatingip1, ibm_is_floating_ip.floatingip2, ibm_is_floating_ip.floatingip3]
 
 resource "ibm_is_lb_pool_member" "lb1-pool-member3" {
   count = 1
